@@ -2,12 +2,17 @@ import React from 'react';
 
 let PomodoroActions = React.createClass({
 
+  propTypes: {
+    startTriggered: React.PropTypes.func.isRequired,
+    resetTriggered: React.PropTypes.func.isRequired
+  },
+
   startTriggered(e) {
-    console.log('startTriggerd')
+    this.props.startTriggered(e);
   },
 
   resetTriggered(e) {
-    console.log('resetTriggerd')
+    this.props.resetTriggered(e);
   },
 
   render() {
