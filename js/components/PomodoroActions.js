@@ -4,7 +4,8 @@ let PomodoroActions = React.createClass({
 
   propTypes: {
     startTriggered: React.PropTypes.func.isRequired,
-    resetTriggered: React.PropTypes.func.isRequired
+    resetTriggered: React.PropTypes.func.isRequired,
+    pauseTriggered: React.PropTypes.func.isRequired
   },
 
   startTriggered(e) {
@@ -15,10 +16,15 @@ let PomodoroActions = React.createClass({
     this.props.resetTriggered(e);
   },
 
+  pauseTriggered(e) {
+    this.props.pauseTriggered(e);
+  },
+
   render() {
     return(
       <div>
         <button onClick={this.startTriggered}>Start</button>
+        <button onClick={this.pauseTriggered}>Pause</button>
         <button onClick={this.resetTriggered}>Reset</button>
       </div>
     );

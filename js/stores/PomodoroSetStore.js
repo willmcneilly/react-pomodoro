@@ -19,14 +19,27 @@ let PomodoroSetStore = Reflux.createStore({
     currentTime: null,
   },
 
+  currentTimer: null,
 
   onStartCountdown() {
-    debugger;
+    var self = this;
+    var data = this.data;
+    this.currentTimer = setInterval(function(){
+      data.periods[0].timeLeft = data.periods[0].timeLeft - 1000 ;
+      self.trigger({data});
+    }, 1000);
+  },
+
+  onPauseCountdown() {
+    var self = this;
+    clearInterval(self.currentTimer);
   },
 
   getInitialState() {
-    return this.data
+    var data = this.data;
+    return {data}
   }
 });
+
 
 export default PomodoroSetStore;

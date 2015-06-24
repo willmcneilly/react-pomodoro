@@ -9,7 +9,7 @@ import PomodoroCompleteList from './components/PomodoroCompleteList.js';
 import PomodoroSetStore from './stores/PomodoroSetStore.js';
 import PomodoroActions from './actions/PomodoroActions.js';
 
-var appSettings = {
+let appSettings = {
   numberPomodorosInSet: 8,
   pomodoroTime: 25,
   shortBreakTime: 5,
@@ -21,7 +21,7 @@ let AppContainer = React.createClass({
   mixins: [Reflux.connect(PomodoroSetStore)],
 
   getPomodoroPeriods() {
-    return this.state.periods.filter(period => period.type === 'pomodoro')
+    return this.state.data.periods.filter(period => period.type === 'pomodoro')
   },
 
   startTriggered() {
@@ -33,13 +33,18 @@ let AppContainer = React.createClass({
     console.log('resetTriggered');
   },
 
+  pauseTriggered() {
+    console.log('pauseTriggered');
+    PomodoroActions.pauseCountdown();
+  },
+
   render() {
-    var currentPeriod = this.state.periods[this.state.queuedPeriod];
+    var currentPeriod = this.state.data.periods[this.state.data.queuedPeriod - 1];
     return (
       <div className="app-container">
         <PomodoroMessage periodType={currentPeriod.type} />
         <PomodoroTime timeLeft={currentPeriod.timeLeft}/>
-        <PomodoroButtons startTriggered={this.startTriggered} resetTriggered={this.resetTriggered} />
+        <PomodoroButtons startTriggered={this.startTriggered} resetTriggered={this.resetTriggered} pauseTriggered={this.pauseTriggered}/>
         <PomodoroCompleteList pomodoros={this.getPomodoroPeriods()}/>
       </div>
     );
