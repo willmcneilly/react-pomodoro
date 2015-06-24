@@ -8,7 +8,7 @@ let PomodoroSetStore = Reflux.createStore({
 
   data: {
     periods: [
-      {id: 1, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
+      {id: 1, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 5000},
       {id: 2, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
       {id: 3, type: 'short-break', length: 10000, active: false, complete: false, timeLeft: 10000},
       {id: 4, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
@@ -31,10 +31,31 @@ let PomodoroSetStore = Reflux.createStore({
     }
 
     this.currentTimer = setInterval(function(){
+      if(data.periods[currentPeriodID].timeLeft <= 0) {
+
+        self.triggerNextPeriod();
+      }
       data.periods[currentPeriodID].timeLeft = data.periods[currentPeriodID].timeLeft - 1000;
       data.periods[currentPeriodID].active = true;
       self.trigger({data});
     }, 1000);
+  },
+
+  triggerNextPeriod() {
+
+    this.clearTimer();
+    let data = this.data;
+    let currentPeriodID = data.queuedPeriod;
+    data.periods[currentPeriodID].complete = true;
+    data.queuedPeriod = currentPeriodID + 1;
+    self.trigger({data});
+    this.onStartCountdown();
+
+  },
+
+  clearTimer() {
+    self = this;
+    clearInterval(self.currentTimer);
   },
 
   onPauseCountdown() {
@@ -42,7 +63,7 @@ let PomodoroSetStore = Reflux.createStore({
     var data = this.data;
     var currentPeriodID = data.queuedPeriod;
 
-    clearInterval(self.currentTimer);
+    this.clearTimer();
     data.periods[currentPeriodID].active = false;
     self.trigger({data});
   },
