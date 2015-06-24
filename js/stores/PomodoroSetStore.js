@@ -15,8 +15,7 @@ let PomodoroSetStore = Reflux.createStore({
       {id: 5, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
       {id: 6, type: 'long-break', length: 20000, active: false, complete: false, timeLeft: 20000}
     ],
-    queuedPeriod: 1,
-    currentTime: null,
+    queuedPeriod: 0,
   },
 
   currentTimer: null,
@@ -24,15 +23,28 @@ let PomodoroSetStore = Reflux.createStore({
   onStartCountdown() {
     var self = this;
     var data = this.data;
+    var currentPeriodID = data.queuedPeriod;
+
+    // if timer is already started return
+    if(data.periods[currentPeriodID].active) {
+      return;
+    }
+
     this.currentTimer = setInterval(function(){
-      data.periods[0].timeLeft = data.periods[0].timeLeft - 1000 ;
+      data.periods[currentPeriodID].timeLeft = data.periods[currentPeriodID].timeLeft - 1000;
+      data.periods[currentPeriodID].active = true;
       self.trigger({data});
     }, 1000);
   },
 
   onPauseCountdown() {
     var self = this;
+    var data = this.data;
+    var currentPeriodID = data.queuedPeriod;
+
     clearInterval(self.currentTimer);
+    data.periods[currentPeriodID].active = false;
+    self.trigger({data});
   },
 
   getInitialState() {

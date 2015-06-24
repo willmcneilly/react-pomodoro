@@ -39,7 +39,7 @@ let AppContainer = React.createClass({
   },
 
   render() {
-    var currentPeriod = this.state.data.periods[this.state.data.queuedPeriod - 1];
+    var currentPeriod = this.state.data.periods[this.state.data.queuedPeriod];
     return (
       <div className="app-container">
         <PomodoroMessage periodType={currentPeriod.type} />
