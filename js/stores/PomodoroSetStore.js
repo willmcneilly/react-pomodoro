@@ -8,7 +8,7 @@ let PomodoroSetStore = Reflux.createStore({
 
   data: {
     periods: [
-      {id: 1, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 5000},
+      {id: 1, type: 'pomodoro', length: 6000, active: false, complete: false, timeLeft: 64000},
       {id: 2, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
       {id: 3, type: 'short-break', length: 10000, active: false, complete: false, timeLeft: 10000},
       {id: 4, type: 'pomodoro', length: 60000, active: false, complete: false, timeLeft: 60000},
