@@ -1,0 +1,8 @@
+.root {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #777;
+  padding: 0 20px;
+  margin: 0 6px;
+  max-width: 400px;
+}
