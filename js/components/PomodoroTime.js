@@ -1,5 +1,4 @@
 import React from 'react';
-import Moment from '../../node_modules/moment/moment';
 
 let PomodoroTime = React.createClass({
 
@@ -21,7 +20,7 @@ let PomodoroTime = React.createClass({
     } else {
       timeInMinutes = timeInMinutes + "";
     }
-    return timeInMinutes + " : " + timeInSeconds;
+    return timeInMinutes + ":" + timeInSeconds;
   },
 
   render() {
