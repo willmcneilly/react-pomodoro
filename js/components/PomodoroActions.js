@@ -24,9 +24,9 @@ export default class PomodoroActionsStyles extends Component {
   render() {
     return(
       <div className={ styles.root }>
-        <button onClick={this.startTriggered}>Start</button>
-        <button onClick={this.pauseTriggered}>Pause</button>
-        <button onClick={this.resetTriggered}>Reset</button>
+        <button onClick={ e => this.startTriggered(e) }>Start</button>
+        <button onClick={ e => this.pauseTriggered(e) }>Pause</button>
+        <button onClick={ e => this.resetTriggered(e) }>Reset</button>
       </div>
     );
   }
