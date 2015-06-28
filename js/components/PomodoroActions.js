@@ -2,7 +2,7 @@ import styles from './PomodoroActionsStyles.css';
 import React, { Component } from 'react';
 
 export default class PomodoroActionsStyles extends Component {
-
+  
   propTypes: {
     startTriggered: React.PropTypes.func.isRequired,
     resetTriggered: React.PropTypes.func.isRequired,
